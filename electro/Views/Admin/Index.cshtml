@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>espace admin</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="admin-menu">
+    <li>
+        <a asp-area="" asp-controller="Admin" asp-action="listecategories">gestion categorie</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="Admin" asp-action="listecommande">gestion commande</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="Admin" asp-action="listeproduit">gestion produit</a>
+    </li>
+</ul>
+<style>
+    .admin-menu {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex; /* Utilisation de Flexbox */
+        justify-content: space-around; /* Alignement des éléments avec un espacement automatique */
+    }
+
+        .admin-menu li {
+            background-color: #f8f9fa;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            flex: 1; /* Pour que chaque élément occupe une part égale de l'espace */
+            max-width: 200px; /* Limite la largeur maximum pour éviter le débordement */
+        }
+
+            .admin-menu li:hover {
+                background-color: #e2e6ea;
+            }
+
+            .admin-menu li a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: bold;
+                display: block; /* Affiche les liens en tant que blocs pour remplir l'espace */
+                padding: 5px 10px; /* Ajoute un peu de rembourrage pour améliorer le clic */
+            }
+
+                .admin-menu li a:hover {
+                    text-decoration: underline;
+                }
+</style>
+
+</style>

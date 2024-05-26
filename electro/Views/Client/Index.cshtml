@@ -1,0 +1,82 @@
+﻿@{
+    var articles = ViewBag.Articles as IEnumerable<Article>;
+    var categories = ViewBag.Categories as IEnumerable<Categorie>;
+}
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>Shop</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+<!-- products -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-filters">
+                    <ul>
+                        <li class="active" data-filter="*">All</li>
+                        @foreach (var category in categories)
+                        {
+                            <li data-filter=".category-@category.Id">@category.Nom</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row product-lists">
+            @if (articles != null)
+            {
+                foreach (var item in articles)
+                {
+                    var photoPath = Url.Content("~/images/" + (item.Image ?? "noimage.jpg"));
+                    <div class="col-lg-4 col-md-6 text-center category-@item.CategorieId">
+                        <div class="single-product-item">
+                            <div class="product-image">
+                                <a href="single-product.html"><img src="@photoPath" alt="@item.Désignation"></a>
+                            </div>
+                            <h3>@item.Désignation</h3>
+                            <p class="product-price"><span>@item.Prix dt</span></p>
+
+                            @if (string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("Email")))
+                            {
+                                <!-- Session vide : Afficher le bouton Login -->
+                                <a asp-action="Login" asp-controller="Client" class="cart-btn">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </a>
+                            }
+                            else
+                            {
+                                <!-- Form to add article to cart -->
+                                <form asp-controller="Client" asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="articleId" value="@item.Id" />
+                                    <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No articles available.</p>
+            }
+        </div>
+    </div>
+</div>
+<!-- end products -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // You can add product filtering or other client-side logic here if needed
+        });
+    </script>
+}

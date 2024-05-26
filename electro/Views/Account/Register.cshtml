@@ -1,0 +1,54 @@
+﻿@model electro.Models.ViewModels.RegisterViewModeladmin
+@{
+ViewBag.Title = "User Registration";
+}
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>User Registration</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+<div class="col-md-4">
+<form method="post">
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="form-group">
+
+<label asp-for="Email" class="control-label"></label>
+<input asp-for="Email" class="form-control" />
+<span asp-validation-for="Email" class="text-danger"></span>
+
+</div>
+            <div class="form-group">
+
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+
+                <span asp-validation-for="ConfirmPassword" class="text-
+danger"></span>
+
+            </div>
+            <div class="form-group">
+
+                <input type="submit" value="Register" class="btn btn-primary" />
+
+            </div>
+        </form>
+    </div>
+</div>

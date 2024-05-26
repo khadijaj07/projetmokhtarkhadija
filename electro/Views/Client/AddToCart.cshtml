@@ -1,0 +1,39 @@
+﻿@model List<Article>  // Assuming you pass a list of articles to the view
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Product List</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        var photoPath = Url.Content("~/images/" + (item.Image ?? "noimage.jpg"));
+        <div class="col-lg-4 col-md-6 text-center category-@item.CategorieId">
+            <div class="single-product-item">
+                <div class="product-image">
+                    <a href="single-product.html"><img src="@photoPath" alt="@item.Désignation"></a>
+                </div>
+                <h3>@item.Désignation</h3>
+                <p class="product-price"><span>@item.Prix dt</span></p>
+
+                <!-- Form to add article to cart -->
+                <form action="@Url.Action("AddToCart", "Cart")" method="post">
+                    <input type="hidden" name="articleId" value="@item.Id" />
+                    <button type="submit" class="cart-btn btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

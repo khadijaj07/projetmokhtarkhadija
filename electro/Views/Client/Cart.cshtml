@@ -1,0 +1,110 @@
+﻿<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th class="product-image">Product Image</th>
+                                <th class="product-name">Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var article in Model.Articles)
+                            {
+                                var photoPath = Url.Content("~/images/" + (article.Image ?? "noimage.jpg"));
+                                <tr class="table-body-row" data-product-id="@article.Id">
+                                    <td class="product-remove">
+                                        <form asp-controller="Client" asp-action="RemoveFromCart" method="post">
+                                            <input type="hidden" name="id" value="@article.Id" />
+                                            <button type="submit" class="btn btn-link"><i class="far fa-window-close"></i></button>
+                                        </form>
+                                    </td>
+                                    <td class="product-image">
+                                        <img src="@photoPath" alt="@article.Désignation">
+                                    </td>
+                                    <td class="product-name">@article.Désignation</td>
+                                    <td class="product-price">@article.Prix</td>
+                                    <td class="product-quantity">
+                                        <input type="number" placeholder="0" class="quantity-input" value="1" data-price="@article.Prix" onchange="calculateTotal(this)" />
+                                    </td>
+                                    <td class="product-total">@article.Prix</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="total-section">
+                    <div class="subtotal-row">
+                        <label style="color:white;">Subtotal:</label>
+                        <span class="subtotal-amount" style="color:white;">0.00</span>
+                    </div>
+
+                    <div class="cart-buttons">
+                        <form id="checkoutForm" asp-controller="Client" asp-action="CheckOut" method="post">
+                            <div class="total-row">
+                                <label>Total:</label>
+                                <input id="sommeInput" name="somme" class="total-amount" readonly value="110" />
+                                <input type="hidden" id="totalHiddenInput" name="total" value="0" />
+                            </div>
+                            <button type="submit" class="cart-buttons">Check Out</button>
+                        </form>
+                    </div>
+
+               
+                   
+
+                </div>
+            </div>
+
+@section Scripts {
+               
+                    <script>
+                        function updateCartTotal() {
+                            var subtotal = 0;
+                            var rows = document.querySelectorAll('.table-body-row');
+
+                            rows.forEach(function (row) {
+                                var total = parseFloat(row.querySelector('.product-total').textContent);
+                                subtotal += total;
+                            });
+
+                            // Update subtotal and total display
+                            document.querySelector('.subtotal-amount').textContent = subtotal.toFixed(2);
+                            document.querySelector('.total-amount').value = subtotal.toFixed(2);
+
+                            // Update hidden input with the total sum
+                            document.getElementById('sommeInput').value = subtotal.toFixed(2);
+                        }
+
+                    function calculateTotal(input) {
+                        var price = parseFloat(input.getAttribute('data-price'));
+                        var quantity = parseInt(input.value);
+                        var total = price * quantity;
+                        var row = input.closest('.table-body-row');
+                        row.querySelector('.product-total').textContent = total.toFixed(2);
+
+                        updateCartTotal();
+                    }
+                    var total = calculateTotal();
+                    document.getElementById('sommeInput').value = total;
+                    document.getElementById('totalHiddenInput').value = total;
+
+                    document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+                        updateCartTotal();  
+                        console.log('Total value before submission:', document.getElementById('sommeInput').value); // For debugging
+                    });
+                </script>
+
+              
+
+
+}

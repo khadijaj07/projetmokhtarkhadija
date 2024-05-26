@@ -1,0 +1,24 @@
+﻿@model Categorie // Assurez-vous que le modèle correspond à votre entité Categorie
+
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Modifier la catégorie</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-controller="Admin" asp-action="Editcat" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Nom" class="control-label"></label>
+        <input asp-for="Nom" class="form-control" />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+</form>

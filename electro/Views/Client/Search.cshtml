@@ -1,0 +1,45 @@
+﻿@model IEnumerable<electro.Models.Article>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>Shop</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row product-lists">
+            @foreach (var item in Model)
+            {
+                var photoPath = Url.Content("~/images/" + (item.Image ?? "noimage.jpg"));
+                <div class="col-lg-4 col-md-6 text-center category-@item.CategorieId">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="single-product.html"><img src="@photoPath" alt="@item.Désignation"></a>
+                        </div>
+                        <h3>@item.Désignation</h3>
+                        <p class="product-price"><span></span> @item.Prix dt</p>
+                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+        });
+    </script>
+}

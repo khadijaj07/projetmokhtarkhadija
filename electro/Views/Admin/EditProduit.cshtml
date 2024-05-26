@@ -1,0 +1,113 @@
+﻿@model electro.Models.ViewModels.EditViewModel
+
+@{
+    ViewBag.Title = "Edit Article";
+    var photoPath = Url.Content("~/images/" + (Model.ExistingImagePath ?? "noimage.jpg"));
+}
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+
+                    <h1>Edit Article</h1>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Admin" asp-action="EditProduit" enctype="multipart/form-data" method="post" class="mt-3">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Hidden inputs for ID and existing image path -->
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ExistingImagePath" />
+
+            <!-- Designation Field -->
+            <div class="form-group row">
+                <label asp-for="Designation" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Designation" class="form-control" placeholder="Désignation" />
+                    <span asp-validation-for="Designation" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Prix Field -->
+            <div class="form-group row">
+                <label asp-for="Prix" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Prix" class="form-control" placeholder="Prix" />
+                    <span asp-validation-for="Prix" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Quantite Field -->
+            <div class="form-group row">
+                <label asp-for="Quantite" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Quantite" class="form-control" placeholder="Quantité" />
+                    <span asp-validation-for="Quantite" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="form-group row">
+                <label asp-for="ImagePath" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="ImagePath" type="file" class="custom-file-input" />
+                        <label class="custom-file-label" for="ImagePath">Cliquez ici pour changer la photo</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category ID Field -->
+            <div class="form-group row">
+                <label asp-for="CategorieId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="CategorieId" class="form-control" placeholder="CategorieId" />
+                    <span asp-validation-for="CategorieId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Existing Product Photo -->
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <img id="imagePreview" src="@photoPath" height="100" width="100" class="img-thumbnail" />
+                </div>
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="listeproduit" asp-controller="Admin" class="btn btn-secondary">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on('change', function () {
+                        var fileName = $(this).val().split('\\').pop();
+                        $(this).next('.custom-file-label').html(fileName);
+
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#imagePreview').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                    });
+                });
+            </script>
+        }
+    </div>
+</div>

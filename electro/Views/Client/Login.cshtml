@@ -1,0 +1,90 @@
+﻿@model electro.Models.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <h1>login</h1>
+                <div class="breadcrumb-text">
+                
+
+               
+                    <form id="loginForm" action="Login" method="post">
+                        <div id="validationSummary" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label for="Email">Email</label>
+                            <input id="Email" name="Email" type="text" class="form-control" />
+                            <span id="emailValidation" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            <input id="Password" name="Password" type="password" class="form-control" />
+                            <span id="passwordValidation" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+                <a asp-area="" asp-controller="Client" asp-action="Register"><i>Register</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  
+
+    #loginForm {
+        max-width: 300px;
+        margin: 0 auto; /* Center the form horizontally */
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 8px; /* Reduced padding */
+        font-size: 14px; /* Reduced font size */
+        border: 1px solid #1A4D57;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #1A4D57;
+        color: #fff;
+        left:initial;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+</style>
+
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // JavaScript code here
+    });
+
+        </script>

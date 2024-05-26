@@ -1,0 +1,23 @@
+﻿@model electro.Models.Article
+
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+
+                    <h1>Détails de l'article avec le chiffre d'affaires le plus élevé</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <h4>Désignation : @Model.Désignation</h4>
+    <p>Prix : @Model.Prix</p>
+    <p>Quantité : @Model.Quantite</p>
+    <p>Chiffre d'Affaire : @Model.ChiffreAffaire</p>
+    <p>Catégorie : @Model.Categorie?.Nom</p>
+
+</div>
